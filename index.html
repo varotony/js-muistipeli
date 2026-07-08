@@ -1,14 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muistipeli</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <h1>Muistipeli</h1>
-    <div id="game-board"></div>
-    <script type="module" src="./js/game.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Muistipeli</title>
+        <link rel="stylesheet" href="css/styles.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Muistipeli</h1>
+        </div>
+
+        <div id="start-menu">
+            <select id="card-count">
+                <option value="8">8 korttia</option>
+                <option value="12">12 korttia</option>
+                <option value="16">16 korttia</option>
+            </select>
+
+            <button id="start-button">Aloita peli</button>
+        </div>
+        <button id="restart-button">Restart</button>
+
+        <div id="game-board"></div>
+        <script type="module" src="./js/game.js"></script>
+    </body>
 </html>

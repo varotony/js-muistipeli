@@ -1,5 +1,7 @@
 body {
-    font-family: Arial, sans-serif;
+    background-color: #0D0221;
+    color: #2de2e6;
+    font-family: "Orbitron", sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,17 +16,76 @@ body {
     grid-gap: 10px;
 }
 
+
+.container h1 {
+    font-family: "Audiowide", sans-serif;
+    font-size: 65px;
+    text-align: center;
+    border: 2px solid magenta;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-shadow: magenta 2px 2px 5px;
+    box-shadow: magenta 2px 4px 10px;
+    border-radius: 10px;
+}
+
 .card {
     width: 100px;
     height: 100px;
-    background-color: #ccc;
+    background-color: #0D0221;
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
     cursor: pointer;
+    border: 2px solid magenta;
+    text-shadow: magenta 2px 2px 5px;
+    box-shadow: magenta 2px 4px 10px;
+    border-radius: 10px;
 }
 
 .card.flipped {
-    background-color: #fff;
+    background-color: #261447;
+    color: #2de2e6;
+    text-shadow: #2de2e6 2px 2px 5px;
+}
+
+#restart-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+    background-color: #261447;
+    color: #ffffff;
+    text-align: center;
+    border: 2px solid magenta;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-shadow: #2de2e6 2px 2px 5px;
+    box-shadow: magenta 2px 4px 10px;
+    border-radius: 10px;
+}
+
+#start-button{
+    background-color: #261447;
+    color: #ffffff;
+    text-align: center;
+    border: 2px solid magenta;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-shadow: #2de2e6 2px 2px 5px;
+    box-shadow: magenta 2px 4px 10px;
+    border-radius: 10px;
+}
+#card-count {
+    background-color: #261447;
+    color: #ffffff;
+    text-align: center;
+    border: 2px solid magenta;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-shadow: #2de2e6 2px 2px 5px;
+    box-shadow: magenta 2px 4px 10px;
+    border-radius: 10px;
 }

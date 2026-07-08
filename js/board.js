@@ -1,33 +1,61 @@
-import { createCardElement, flipCard } from './card.js';
+import { createCardElement, flipCard } from "./card.js";
 
 const allCards = [
-    '🍎', '🍐', '🍒', '🍉', '🍇', '🍓', '🍌', '🍍', '🥝', '🥥', '🍑', '🍈', '🍋', '🍊', '🍏', '🍅'
+    "🍎",
+    "🍐",
+    "🍒",
+    "🍉",
+    "🍇",
+    "🍓",
+    "🍌",
+    "🍍",
+    "🥝",
+    "🥥",
+    "🍑",
+    "🍈",
+    "🍋",
+    "🍊",
+    "🍏",
+    "🍅",
 ];
-const gameBoard = document.getElementById('game-board');
+const gameBoard = document.getElementById("game-board");
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
+let playerTries = 0;
+let pairsFound = 0;
+let totalPairs = 0;
 
 function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
 }
 
 export function createBoard(cardCount) {
+    totalPairs = cardCount / 2;
     const selectedCards = allCards.slice(0, cardCount / 2);
     const cards = [...selectedCards, ...selectedCards];
     shuffle(cards);
-    cards.forEach(card => {
+    cards.forEach((card) => {
         const cardElement = createCardElement(card);
-        cardElement.addEventListener('click', () => flipCard(cardElement, handleCardFlip));
+        const handler = () => {
+            if (lockBoard) return;
+            if (secondCard) return;
+            flipCard(cardElement, handleCardFlip);
+        };
+        cardElement._clickHandler = handler;
         gameBoard.appendChild(cardElement);
+        cardElement.addEventListener("click", handler);
     });
 }
 
 function handleCardFlip(cardElement) {
     if (lockBoard) return;
     if (cardElement === firstCard) return;
+    if (secondCard) return;
 
-    cardElement.classList.add('flipped');
+    playerTries++;
+
+    cardElement.classList.add("flipped");
     cardElement.textContent = cardElement.dataset.card;
 
     if (!firstCard) {
@@ -41,26 +69,46 @@ function handleCardFlip(cardElement) {
 
 function checkForMatch() {
     let isMatch = firstCard.dataset.card === secondCard.dataset.card;
-    isMatch ? disableCards() : unflipCards();
+
+    if (isMatch) {
+        pairsFound++;
+        disableCards();
+        if (pairsFound === totalPairs) {
+            setTimeout(() => {
+                alert(`Voitit! Yrityksiä: ${playerTries}`);
+                resetBoard();
+            }, 500);
+        } else {
+            resetBoard();
+        }
+    } else {
+        unflipCards();
+    }
 }
 
 function disableCards() {
-    firstCard.removeEventListener('click', flipCard);
-    secondCard.removeEventListener('click', flipCard);
-    resetBoard();
+    lockBoard = true;
+    firstCard.removeEventListener("click", firstCard._clickHandler);
+    secondCard.removeEventListener("click", secondCard._clickHandler);
 }
 
 function unflipCards() {
     lockBoard = true;
     setTimeout(() => {
-        firstCard.classList.remove('flipped');
-        secondCard.classList.remove('flipped');
-        firstCard.textContent = '';
-        secondCard.textContent = '';
+        firstCard.classList.remove("flipped");
+        secondCard.classList.remove("flipped");
+        firstCard.textContent = "";
+        secondCard.textContent = "";
         resetBoard();
     }, 1500);
 }
 
 function resetBoard() {
     [firstCard, secondCard, lockBoard] = [null, null, false];
+}
+
+export function restartGame() {
+    resetBoard();
+    totalPairs = 0;
+    gameBoard.innerHTML = "";
 }
